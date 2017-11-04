@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script src="../src/createElement.js"></script>
+<script src="../lib/babel.js"></script>
+<script type="text/babel">
+    function PureComponent(props) {
+      return (
+        <div className={props.className}>
+            <p>{props.title}</p>
+        </div>
+      )
+    }
+  const jsx = (
+          <div>
+              <p id="jsx">this is jsx</p>
+              <PureComponent title="this is pureCompnent" className="pureComponent"/>
+          </div>
+  )
+    ReactDOM.render(jsx, document.body)
+</script>
+</html>
