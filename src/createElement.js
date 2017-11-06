@@ -1,8 +1,11 @@
+import { isClass, Component } from 'Component'
+
 function VNode(type, props, children) {
   this.type = type
   this.props = props
   this.children = children
 }
+
 function createElement(type, props, ...args) {
   let children = args.length > 0 ? args : null
   return new VNode(type, props, children)
@@ -13,8 +16,13 @@ function mountText(text) {
 }
 
 function mountComposite(vnode) {
-  const node = vnode.type(vnode.props)
-  return mount(node)
+  const { type } = vnode.type
+  if (isClass(type)) { // class Component
+    console.log('type-----_>', type)
+  } else { // functional Component
+    const node = type(vnode.props)
+    return mount(node)
+  }
 }
 
 function mountElement(vnode) {

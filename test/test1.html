@@ -7,22 +7,42 @@
 <body>
     <div id="root"></div>
 </body>
-<script src="../src/createElement.js"></script>
+<script src="../dist/React.js"></script>
 <script src="../lib/babel.js"></script>
 <script type="text/babel">
     function PureComponent(props) {
       return (
-        <div className={props.className}>
-            <p>{props.title}</p>
-        </div>
+        <p>{`this is ${props.name}`}</p>
       )
     }
-  const jsx = (
+
+    class App extends React.Component {
+      constructor(props, context) {
+        super(props, context)
+        this.state = {
+          name: 'this is class component',
+          active: false,
+        }
+        setTimeout(() => {
+          this.setState({ active: !this.state.active })
+        }, 1000)
+      }
+      render() {
+        const bgColor = this.state.active ? 'red' : 'green'
+        return (
           <div>
-              <p id="jsx">this is jsx</p>
-              <PureComponent title="this is pureCompnent" className="pureComponent"/>
+              <p className={this.props.className}>{this.state.name}</p>
+              <PureComponent name="pure component"/>
+              <p>this is jsx</p>
+              <div
+                style={{ width: 200, height: 200, background: bgColor }}
+              >
+                  div
+              </div>
           </div>
-  )
-    ReactDOM.render(jsx, document.body)
+        )
+      }
+    }
+    ReactDOM.render(<App className="class_component"/>, document.body)
 </script>
 </html>
